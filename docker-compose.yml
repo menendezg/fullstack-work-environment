@@ -1,8 +1,23 @@
 version: '3'
+services:
+#######################################
+# Setup server container
+#######################################
+  server:
+    build: ./server
+    environment:
+      - API_HOST:${API_HOST}
+      - APP_SERVER_PORT:${APP_SERVER_PORT}
+    expose:
+      - ${APP_SERVER_PORT}
+    ports:
+      - ${APP_SERVER_PORT}:${APP_SERVER_PORT}
+    volumes:
+      - ./server/src:/srv/app/foo_client/public
+
 #######################################
 # Setup client container
 #######################################
-services:
   client:
     build: ./client
     environment:
@@ -14,6 +29,6 @@ services:
     volumes:
       - ./client/src:/srv/app/foo_client/src
       - ./client/public:/srv/app/foo_client/public
-    #links:
-      #- server
+    links:
+      - server
     command: npm run start
