@@ -13,7 +13,7 @@ services:
     ports:
       - ${APP_SERVER_PORT}:${APP_SERVER_PORT}
     volumes:
-      - ./server/src:/srv/app/foo_client/public
+      - ./server:/foo
 
 #######################################
 # Setup client container
